@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as axios from 'axios';
 import { useAuth } from '../../providers/Auth';
 import VideoList from '../../components/VideoList';
@@ -8,12 +8,12 @@ import './Home.styles.css';
 function HomePage() {
   const history = useHistory();
   const sectionRef = useRef(null);
-  const { authenticated, logout } = useAuth();
+  const { logout } = useAuth();
 
   function deAuthenticate(event) {
     event.preventDefault();
     logout();
-    history.push('/');
+    history.push('/login');
   }
   const [videos, setVideos] = useState(null);
 
@@ -43,19 +43,15 @@ function HomePage() {
 
   return (
     <>
-      {authenticated ? (
-        <div className="homepage" ref={sectionRef}>
-          <h1>Video App!</h1>
-          <nav>
-            <Link to="/" onClick={deAuthenticate}>
-              ← logout
-            </Link>
-          </nav>
-          <VideoList {...videos} />
-        </div>
-      ) : (
-        <Redirect to="/login" />
-      )}
+      <div className="homepage" ref={sectionRef}>
+        <h1>Video App!</h1>
+        <nav>
+          <Link to="/" onClick={deAuthenticate}>
+            ← logout
+          </Link>
+        </nav>
+        <VideoList {...videos} />
+      </div>
     </>
   );
 }

@@ -1,5 +1,10 @@
+.login_container {
+  text-align: center;
+  width: 100%;
+}
 .login {
   width: 300px;
+  display: inline-block;
 }
 
 .login h1 {

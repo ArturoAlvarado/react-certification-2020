@@ -5,7 +5,7 @@ import AuthProvider from '../../providers/Auth';
 import HomePage from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
-import SecretPage from '../../pages/Secret';
+import Video from '../../pages/Video';
 import Private from '../Private';
 import Layout from '../Layout';
 import { random } from '../../utils/fns';
@@ -34,15 +34,9 @@ function App() {
       <AuthProvider>
         <Layout>
           <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/login">
-              <LoginPage />
-            </Route>
-            <Private exact path="/secret">
-              <SecretPage />
-            </Private>
+            <Route exact path="/login" component={LoginPage} />
+            <Private exact path="/" component={HomePage} />
+            <Private exact path="/video/:id" component={Video} />
             <Route path="*">
               <NotFound />
             </Route>
