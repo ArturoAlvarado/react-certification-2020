@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-
+import React, { useRef, useState, useEffect } from 'react';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import * as axios from 'axios';
 import { useAuth } from '../../providers/Auth';
+import VideoList from '../../components/VideoList';
 import './Home.styles.css';
 
 function HomePage() {
@@ -14,25 +15,48 @@ function HomePage() {
     logout();
     history.push('/');
   }
+  const [videos, setVideos] = useState(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchVideos = async () => {
+      const result = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+        params: {
+          part: 'snippet',
+          maxResults: 20,
+          key: process.env.REACT_APP_YOUTUBE_API,
+          chart: 'mostPopular',
+        },
+      });
+      if (mounted) {
+        setVideos(result.data);
+      }
+    };
+
+    fetchVideos();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
-    <section className="homepage" ref={sectionRef}>
-      <h1>Hello stranger!</h1>
+    <>
       {authenticated ? (
-        <>
-          <h2>Good to have you back</h2>
-          <span>
+        <div className="homepage" ref={sectionRef}>
+          <h1>Video App!</h1>
+          <nav>
             <Link to="/" onClick={deAuthenticate}>
               ← logout
             </Link>
-            <span className="separator" />
-            <Link to="/secret">show me something cool →</Link>
-          </span>
-        </>
+          </nav>
+          <VideoList {...videos} />
+        </div>
       ) : (
-        <Link to="/login">let me in →</Link>
+        <Redirect to="/login" />
       )}
-    </section>
+    </>
   );
 }
 
