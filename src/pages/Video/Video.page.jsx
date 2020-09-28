@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as axios from 'axios';
 import VideoList from '../../components/VideoList';
+import { useFavoriteVideos } from '../../providers/FavoriteVideos';
 
 function Video(props) {
   const { id } = props.match.params;
   const [relatedVideos, setRelatedVideos] = useState(null);
-
+  const { favoriteVideos, changeFavorites } = useFavoriteVideos();
+  console.log(favoriteVideos);
   useEffect(() => {
     let mounted = true;
 
@@ -45,6 +47,9 @@ function Video(props) {
         src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`}
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       />
+      <button type="button" onClick={() => changeFavorites({ type: 'add', payload: id })}>
+        Add to Favorites
+      </button>
       <VideoList {...relatedVideos} />
     </section>
   );

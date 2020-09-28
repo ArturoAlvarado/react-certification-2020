@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import * as axios from 'axios';
 import { useAuth } from '../../providers/Auth';
+
 import VideoList from '../../components/VideoList';
 import './Home.styles.css';
 
@@ -9,7 +10,6 @@ function HomePage() {
   const history = useHistory();
   const sectionRef = useRef(null);
   const { logout } = useAuth();
-
   function deAuthenticate(event) {
     event.preventDefault();
     logout();
@@ -46,6 +46,7 @@ function HomePage() {
       <div className="homepage" ref={sectionRef}>
         <h1>Video App!</h1>
         <nav>
+          <Link to="/favorites">Favorites</Link>
           <Link to="/" onClick={deAuthenticate}>
             ← logout
           </Link>
