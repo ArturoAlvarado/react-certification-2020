@@ -7,8 +7,16 @@ import { useFavoriteVideos } from '../../providers/FavoriteVideos';
 function Video(props) {
   const { id } = props.match.params;
   const [relatedVideos, setRelatedVideos] = useState(null);
+  const [info, setVideoInfo] = useState(null);
   const { favoriteVideos, changeFavorites } = useFavoriteVideos();
-  console.log(favoriteVideos);
+
+  const toggleFavorite = () => {
+    if (favoriteVideos.has(id)) {
+      changeFavorites({ type: 'remove', payload: id })
+    } else {
+      changeFavorites({ type: 'add', payload: id })
+    }
+  }
   useEffect(() => {
     let mounted = true;
 
@@ -22,7 +30,16 @@ function Video(props) {
           maxResults: 10,
         },
       });
+      const info = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+        params: {
+          part: 'snippet',
+          key: process.env.REACT_APP_YOUTUBE_API,
+          id: id,
+        },
+      });
       if (mounted) {
+        console.log(info.data)
+        setVideoInfo(info.data.items[0])
         setRelatedVideos(result.data);
       }
     };
@@ -37,6 +54,7 @@ function Video(props) {
     <section>
       <pre>
         <Link to="/">Home</Link>
+        <Link to="/favorites">Favorites</Link>
       </pre>
       <iframe
         width="800"
@@ -47,9 +65,13 @@ function Video(props) {
         src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`}
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       />
-      <button type="button" onClick={() => changeFavorites({ type: 'add', payload: id })}>
-        Add to Favorites
+      {info ? <div>{info.snippet.title}</div> : ''}
+
+      <button type="button" onClick={() => toggleFavorite()}>
+        {favoriteVideos.has(id) ? 'Remove from Favorites' : 'Add to Favorites'}
       </button>
+
+      <div>Related Videos</div>
       <VideoList {...relatedVideos} />
     </section>
   );

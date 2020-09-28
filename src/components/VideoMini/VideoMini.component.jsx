@@ -15,6 +15,7 @@ const VideoMini = (props) => {
         />
         <div>{snippet.title}</div>
         <div>{snippet.channelTitle}</div>
+        {props.withDescription ? <div>{snippet.description}</div> : ''}
       </div>
     </Link>
   );
