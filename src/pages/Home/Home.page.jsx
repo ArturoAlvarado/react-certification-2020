@@ -15,6 +15,7 @@ function HomePage() {
     logout();
     history.push('/login');
   }
+  console.log(process.env.REACT_APP_YOUTUBE_API);
   const [videos, setVideos] = useState(null);
   const [searchParam, setSearchParam] = useState('');
   useEffect(() => {
