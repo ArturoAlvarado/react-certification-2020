@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import * as axios from 'axios';
 import VideoList from '../../components/VideoList';
 import { useFavoriteVideos } from '../../providers/FavoriteVideos';
+import Navbar from '../../components/Navbar';
 
+const Container = styled('div')`
+  margin: 0 1rem ;
+`
 function Favorites(props) {
   const { id } = props.match.params;
   const [favVideos, setFavVideos] = useState(null);
@@ -32,14 +36,11 @@ function Favorites(props) {
   }, [id, favoriteVideos]);
 
   return (
-    <section>
-      <pre>
-        <Link to="/">Home</Link>
-      </pre>
+    <Container>
+      <Navbar/>
       <h1>Favorites</h1>
-
       <VideoList withDescription {...favVideos} />
-    </section>
+    </Container>
   );
 }
 

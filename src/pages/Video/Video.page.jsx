@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import * as axios from 'axios';
 import styled from 'styled-components';
 
@@ -24,6 +23,10 @@ const FavButton = styled('button')`
   margin: 0 10px;
   color: white;
 `;
+const SubTitle = styled('div')`
+  text-align:center;
+`;
+
 function Video(props) {
   const { id } = props.match.params;
   const [relatedVideos, setRelatedVideos] = useState(null);
@@ -87,11 +90,11 @@ function Video(props) {
           {info ? <div>{info.snippet.title}</div> : ''}
 
           <FavButton type="button" onClick={() => toggleFavorite()}>
-            {favoriteVideos.has(id) ? <><i className="fa fa-star" /> Remove from Favorites</> :  <><i className="fa fa-star-o" /> Add to Favorites</>}
+            {favoriteVideos.has(id) ? <><i className="fa fa-star" /> Remove from Favorites</> : <><i className="fa fa-star-o" /> Add to Favorites</>}
           </FavButton>
         </div>
         <div>
-          <div>Related Videos</div>
+          <SubTitle>Related Videos</SubTitle>
           <VideoList {...relatedVideos} />
         </div>
       </Container>

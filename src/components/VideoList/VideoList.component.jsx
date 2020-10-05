@@ -6,6 +6,7 @@ const Container = styled('div')`
   display: grid;
   grid-template-columns: ${({ columns }) => 'auto '.repeat(columns)};
   row-gap: 1rem;
+  justify-content: space-around;
 `;
 const VideoList = ({ items, withDescription, columns }) => {
   const renderVideos = () => {
