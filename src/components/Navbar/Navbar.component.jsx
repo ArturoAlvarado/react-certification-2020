@@ -7,7 +7,7 @@ const Nav = styled('nav')`
   display: grid;
   grid-auto-flow: column;
   padding: 1rem 0;
-  text-align:center;
+  text-align: center;
 `;
 const Navbar = () => {
   const history = useHistory();

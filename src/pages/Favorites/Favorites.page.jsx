@@ -6,8 +6,8 @@ import { useFavoriteVideos } from '../../providers/FavoriteVideos';
 import Navbar from '../../components/Navbar';
 
 const Container = styled('div')`
-  margin: 0 1rem ;
-`
+  margin: 0 1rem;
+`;
 function Favorites(props) {
   const { id } = props.match.params;
   const [favVideos, setFavVideos] = useState(null);
@@ -37,7 +37,7 @@ function Favorites(props) {
 
   return (
     <Container>
-      <Navbar/>
+      <Navbar />
       <h1>Favorites</h1>
       <VideoList withDescription {...favVideos} />
     </Container>

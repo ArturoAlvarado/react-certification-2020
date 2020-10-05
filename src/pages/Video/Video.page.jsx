@@ -15,7 +15,7 @@ const Container = styled('div')`
 `;
 const FavButton = styled('button')`
   cursor: pointer;
-  width:190px;
+  width: 190px;
   padding: 5px;
   border: none;
   background-color: #505050;
@@ -24,7 +24,7 @@ const FavButton = styled('button')`
   color: white;
 `;
 const SubTitle = styled('div')`
-  text-align:center;
+  text-align: center;
 `;
 
 function Video(props) {
@@ -90,7 +90,15 @@ function Video(props) {
           {info ? <div>{info.snippet.title}</div> : ''}
 
           <FavButton type="button" onClick={() => toggleFavorite()}>
-            {favoriteVideos.has(id) ? <><i className="fa fa-star" /> Remove from Favorites</> : <><i className="fa fa-star-o" /> Add to Favorites</>}
+            {favoriteVideos.has(id) ? (
+              <>
+                <i className="fa fa-star" /> Remove from Favorites
+              </>
+            ) : (
+              <>
+                <i className="fa fa-star-o" /> Add to Favorites
+              </>
+            )}
           </FavButton>
         </div>
         <div>

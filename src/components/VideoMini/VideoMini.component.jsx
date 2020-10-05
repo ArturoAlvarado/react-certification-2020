@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const MiniContainer = styled('div')`
-max-width: 320px;
+  max-width: 320px;
 `;
 
 const LinkWithDesc = styled(Link)`
@@ -34,20 +34,21 @@ const renderInfo = (thumbnail, snippet) => (
     <div>{snippet.title}</div>
     <Author>{snippet.channelTitle}</Author>
   </MiniContainer>
-)
+);
 const VideoMini = (props) => {
   const { snippet, withDescription } = props;
   const thumbnail = snippet.thumbnails.medium;
-  return (
-    withDescription ?
-      <LinkWithDesc to={`/video/${typeof props.id === 'string' ? props.id : props.id.videoId}`}>
-        {renderInfo(thumbnail, snippet)}
-        <Description>{snippet.description}</Description>
-      </LinkWithDesc>
-      :
-      <Link to={`/video/${typeof props.id === 'string' ? props.id : props.id.videoId}`}>
-        {renderInfo(thumbnail, snippet)}
-      </Link>
+  return withDescription ? (
+    <LinkWithDesc
+      to={`/video/${typeof props.id === 'string' ? props.id : props.id.videoId}`}
+    >
+      {renderInfo(thumbnail, snippet)}
+      <Description>{snippet.description}</Description>
+    </LinkWithDesc>
+  ) : (
+    <Link to={`/video/${typeof props.id === 'string' ? props.id : props.id.videoId}`}>
+      {renderInfo(thumbnail, snippet)}
+    </Link>
   );
 };
 
