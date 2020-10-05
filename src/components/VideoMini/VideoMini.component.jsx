@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 const Title = styled('div')`
   font-weight: normal;
+  max-width: 320px;
+  text-align: center;
+  display: inline-block;
 `;
 
 const VideoMini = (props) => {

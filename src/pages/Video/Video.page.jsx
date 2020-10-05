@@ -1,9 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as axios from 'axios';
+import styled from 'styled-components';
+
+import Navbar from '../../components/Navbar';
 import VideoList from '../../components/VideoList';
 import { useFavoriteVideos } from '../../providers/FavoriteVideos';
 
+const Container = styled('div')`
+  display: grid;
+  grid-template-columns: 66% 1fr;
+  grid-auto-flow: column;
+  column-gap: 1rem;
+  padding: 1rem;
+`;
+const FavButton = styled('button')`
+  cursor: pointer;
+  width:190px;
+  padding: 5px;
+  border: none;
+  background-color: #505050;
+  border-radius: 5px;
+  margin: 0 10px;
+  color: white;
+`;
 function Video(props) {
   const { id } = props.match.params;
   const [relatedVideos, setRelatedVideos] = useState(null);
@@ -52,27 +72,29 @@ function Video(props) {
 
   return (
     <section>
-      <pre>
-        <Link to="/">Home</Link>
-        <Link to="/favorites">Favorites</Link>
-      </pre>
-      <iframe
-        width="800"
-        height="450"
-        allowFullScreen
-        frameBorder="0"
-        title="rick roll"
-        src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`}
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      />
-      {info ? <div>{info.snippet.title}</div> : ''}
+      <Navbar />
+      <Container>
+        <div>
+          <iframe
+            width="800"
+            height="450"
+            allowFullScreen
+            frameBorder="0"
+            title="rick roll"
+            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`}
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          />
+          {info ? <div>{info.snippet.title}</div> : ''}
 
-      <button type="button" onClick={() => toggleFavorite()}>
-        {favoriteVideos.has(id) ? 'Remove from Favorites' : 'Add to Favorites'}
-      </button>
-
-      <div>Related Videos</div>
-      <VideoList {...relatedVideos} />
+          <FavButton type="button" onClick={() => toggleFavorite()}>
+            {favoriteVideos.has(id) ? <><i className="fa fa-star" /> Remove from Favorites</> :  <><i className="fa fa-star-o" /> Add to Favorites</>}
+          </FavButton>
+        </div>
+        <div>
+          <div>Related Videos</div>
+          <VideoList {...relatedVideos} />
+        </div>
+      </Container>
     </section>
   );
 }
