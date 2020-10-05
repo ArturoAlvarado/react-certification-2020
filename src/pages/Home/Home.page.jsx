@@ -1,20 +1,32 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import * as axios from 'axios';
-import { useAuth } from '../../providers/Auth';
-
+import styled from 'styled-components';
+import Navbar from '../../components/Navbar';
 import VideoList from '../../components/VideoList';
 import './Home.styles.css';
 
+const Header = styled('div')`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  align-items: center;
+  background: #202020;
+  margin-bottom: 2rem;
+`;
+const Title = styled('h1')`
+  margin: 0;
+`;
+const SearchButton = styled('button')`
+  cursor: pointer;
+  width: 65px;
+  padding: 5px;
+  border: none;
+  background-color: #505050;
+  border-radius: 5px;
+  margin: 0 10px;
+  color: white;
+`;
 function HomePage() {
-  const history = useHistory();
-  const sectionRef = useRef(null);
-  const { logout } = useAuth();
-  function deAuthenticate(event) {
-    event.preventDefault();
-    logout();
-    history.push('/login');
-  }
   const [videos, setVideos] = useState(null);
   const [searchParam, setSearchParam] = useState('');
   useEffect(() => {
@@ -50,22 +62,26 @@ function HomePage() {
       },
     });
     setVideos(result.data);
-  }
+  };
 
   return (
     <>
-      <div className="homepage" ref={sectionRef}>
-        <nav>
-          <Link to="/favorites">Favorites</Link>
-          <Link to="/" onClick={deAuthenticate}>
-            ← logout
-          </Link>
-        </nav>
-        <h1>Video App!</h1>
-        <input value={searchParam} onChange={e => setSearchParam(e.target.value)} type='text' />
-        <button type="button" onClick={() => searchVideos()}>Search</button>
-
-        <VideoList {...videos} />
+      <div className="homepage">
+        <Navbar />
+        <Header>
+          <Title>Video App!</Title>
+          <div>
+            <input
+              value={searchParam}
+              onChange={(e) => setSearchParam(e.target.value)}
+              type="text"
+            />
+            <SearchButton type="button" onClick={() => searchVideos()}>
+              Search
+            </SearchButton>
+          </div>
+        </Header>
+        <VideoList columns={3} {...videos} />
       </div>
     </>
   );

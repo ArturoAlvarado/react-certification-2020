@@ -12,11 +12,11 @@ function Video(props) {
 
   const toggleFavorite = () => {
     if (favoriteVideos.has(id)) {
-      changeFavorites({ type: 'remove', payload: id })
+      changeFavorites({ type: 'remove', payload: id });
     } else {
-      changeFavorites({ type: 'add', payload: id })
+      changeFavorites({ type: 'add', payload: id });
     }
-  }
+  };
   useEffect(() => {
     let mounted = true;
 
@@ -30,16 +30,16 @@ function Video(props) {
           maxResults: 10,
         },
       });
-      const info = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+      const vidInfo = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
         params: {
           part: 'snippet',
           key: process.env.REACT_APP_YOUTUBE_API,
-          id: id,
+          id,
         },
       });
       if (mounted) {
-        console.log(info.data)
-        setVideoInfo(info.data.items[0])
+        console.log(vidInfo.data);
+        setVideoInfo(vidInfo.data.items[0]);
         setRelatedVideos(result.data);
       }
     };
@@ -48,7 +48,7 @@ function Video(props) {
     return () => {
       mounted = false;
     };
-  }, [id]);
+  }, [id, favoriteVideos, changeFavorites]);
 
   return (
     <section>

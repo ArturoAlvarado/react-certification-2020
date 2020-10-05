@@ -21,7 +21,7 @@ function FavoriteVideosProvider({ children }) {
     if (savedVideos) {
       changeFavorites({ type: 'init', payload: savedVideos });
     }
-  }, []);
+  }, [changeFavorites]);
 
   return (
     <FavoriteContext.Provider value={{ favoriteVideos, changeFavorites }}>

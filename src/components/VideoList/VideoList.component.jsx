@@ -1,16 +1,23 @@
 import React from 'react';
+import styled from 'styled-components';
 import VideoMini from '../VideoMini';
 
-const VideoList = ({ items, withDescription }) => {
+const Container = styled('div')`
+  display: grid;
+  grid-template-columns: ${({ columns }) => 'auto '.repeat(columns)};
+  row-gap: 1rem;
+`;
+const VideoList = ({ items, withDescription, columns }) => {
   const renderVideos = () => {
     return items.map((video) => (
-      <VideoMini withDescription={withDescription}
+      <VideoMini
+        withDescription={withDescription}
         key={typeof video.id === 'string' ? video.id : video.id.videoId}
         {...video}
       />
     ));
   };
-  return <div>{items ? renderVideos() : <></>}</div>;
+  return <Container columns={columns}>{items ? renderVideos() : <></>}</Container>;
 };
 
 export default VideoList;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as axios from 'axios';
 import VideoList from '../../components/VideoList';
 import { useFavoriteVideos } from '../../providers/FavoriteVideos';
+
 function Favorites(props) {
   const { id } = props.match.params;
   const [favVideos, setFavVideos] = useState(null);
@@ -19,7 +20,7 @@ function Favorites(props) {
         },
       });
       if (mounted) {
-        console.log(result.data)
+        console.log(result.data);
         setFavVideos(result.data);
       }
     };
@@ -28,7 +29,7 @@ function Favorites(props) {
     return () => {
       mounted = false;
     };
-  }, [id]);
+  }, [id, favoriteVideos]);
 
   return (
     <section>
@@ -37,7 +38,7 @@ function Favorites(props) {
       </pre>
       <h1>Favorites</h1>
 
-      <VideoList withDescription={true} {...favVideos} />
+      <VideoList withDescription {...favVideos} />
     </section>
   );
 }
