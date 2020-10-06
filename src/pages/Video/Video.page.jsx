@@ -89,7 +89,7 @@ function Video(props) {
           />
           {info ? <div>{info.snippet.title}</div> : ''}
 
-          <FavButton type="button" onClick={() => toggleFavorite()}>
+          <FavButton id="add-fav" type="button" onClick={() => toggleFavorite()}>
             {favoriteVideos.has(id) ? (
               <>
                 <i className="fa fa-star" /> Remove from Favorites

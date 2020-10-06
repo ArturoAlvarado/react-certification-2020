@@ -68,4 +68,7 @@ describe('render Favorites', () => {
   it('renders Video Component', () => {
     expect(wrapper.find('a').length).toEqual(3);
   });
+  it('renders Video Component', () => {
+    wrapper.find('#add-fav').first().simulate('click');
+  });
 });

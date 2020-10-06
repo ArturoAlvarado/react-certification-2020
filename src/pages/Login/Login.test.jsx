@@ -27,6 +27,11 @@ describe('render Login', () => {
     const submitEvent = { preventDefault: () => console.log('preventDefault') };
     expect(wrapper.find('.login-form').length).toBe(1);
     wrapper.find('.login-form').simulate('submit', submitEvent);
+  });
+  it('renders Login Component', () => {
+    wrapper.find('#username').simulate('change','user');
+    wrapper.find('#password').simulate('change','password');
 
+    wrapper.find('.login-form').simulate('submit');
   });
 });
