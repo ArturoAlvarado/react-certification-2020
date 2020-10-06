@@ -31,7 +31,7 @@ const renderInfo = (thumbnail, snippet) => (
       width={thumbnail.width}
       height={thumbnail.height}
     />
-    <div>{snippet.title}</div>
+    <div id="title">{snippet.title}</div>
     <Author>{snippet.channelTitle}</Author>
   </MiniContainer>
 );
@@ -43,7 +43,7 @@ const VideoMini = (props) => {
       to={`/video/${typeof props.id === 'string' ? props.id : props.id.videoId}`}
     >
       {renderInfo(thumbnail, snippet)}
-      <Description>{snippet.description}</Description>
+      <Description id="desc">{snippet.description}</Description>
     </LinkWithDesc>
   ) : (
     <Link to={`/video/${typeof props.id === 'string' ? props.id : props.id.videoId}`}>

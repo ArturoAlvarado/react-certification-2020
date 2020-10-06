@@ -12,11 +12,13 @@ const Nav = styled('nav')`
 const Navbar = () => {
   const history = useHistory();
   const { logout } = useAuth();
+
   function deAuthenticate(event) {
     event.preventDefault();
     logout();
     history.push('/login');
   }
+
   return (
     <Nav>
       <Link to="/">
@@ -25,7 +27,7 @@ const Navbar = () => {
       <Link to="/favorites">
         <i className="fa fa-star" /> Favorites
       </Link>
-      <Link to="/" onClick={deAuthenticate}>
+      <Link to="/" id="logout" onClick={deAuthenticate}>
         ← logout
       </Link>
     </Nav>

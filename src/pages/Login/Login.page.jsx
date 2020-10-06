@@ -35,7 +35,9 @@ function LoginPage() {
                   <input required type="password" id="password" />
                 </label>
               </div>
-              <button type="submit">login</button>
+              <button id="login" type="submit">
+                login
+              </button>
             </form>
           </section>
         </div>

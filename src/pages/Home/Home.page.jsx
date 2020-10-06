@@ -63,7 +63,6 @@ function HomePage() {
     });
     setVideos(result.data);
   };
-
   return (
     <>
       <div className="homepage">
